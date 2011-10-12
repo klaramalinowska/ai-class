@@ -26,7 +26,7 @@ The problem may be defined by a set of states and functions
 
 States space divides into explored part, frontier (which are the farthest state explored) and unexplored part.
 
-\section{Path searching}
+\subsection{Path searching}
 There two search algorithms differ in ``having memory'' - remembering which states are already explored. The tree algorithm does not do that, so it can go back with the explored path to the state it has already been in. The graph search remembers where it has already been and thus never goes back to the previously visited stated.
 \paragraph{Tree search}
 \begin{verbatim}
@@ -58,11 +58,18 @@ function Tree.Search(problem)
 \end{verbatim}
 
 \paragraph{Breadth first search}
-Always chooses the shortest (in term of steps) path to explore next. If there are paths of the same length, it chooses randomly. Is guaranteed to find the shortest (in terms of number of steps) path.
+Always chooses the shortest (in term of steps) path to explore next. If there are paths of the same length, it chooses randomly. Is guaranteed to find the shortest (in terms of number of steps) path. Requires storage space of $2^n$ paths to store all the nodes in the frontier.
 
 \paragraph{Uniform-cost search - cheapest first}
-It chooses which path to explore next basing on the path cost. Is guaranteed to find the cheapest path, because even if it has already added the goal to the frontier, it firstly explores all the shorter paths and only when the one leading to the goal is the shortest it performs the goal check. 
+It chooses which path to explore next basing on the path cost. Is guaranteed to find the cheapest path, because even if it has already added the goal to the frontier, it firstly explores all the shorter paths and only when the one leading to the goal is the shortest it performs the goal check. Number of paths in the frontier is similar that in the breadth first algorithm.
 
+\paragraph{Depth first search}
+It chooses the longest path to explore first. It is not optimal - does not guarantee to find the best solution (path that reaches the goal in the minimal amount of steps). Requires storage space of $n$ to store all the nodes in the frontier.
 
+\paragraph{Number of nodes in the frontier}
+It is $2^n$ for the breadth first search and similar in the uniform-cost search. It is $n$ in the depth first search. Thus depth first search requires much less memory than the other two when we save the frontier only. However, if we save also explored space, all three algorithms need the similar amount of memory.
+
+\paragraph{Completeness}
+Algorithm is complete if it will always find the optimal path. Breadth first and uniform-cost search algorithms are complete. The depth first search algorithm is not.
 
 \end{document}
