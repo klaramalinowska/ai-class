@@ -1,0 +1,68 @@
+\documentclass[a4paper,10pt]{article}
+\usepackage[utf8]{inputenc}
+
+%opening
+\title{Artificial Intelligence \\ notes}
+\author{Klara Malinowska}
+
+\begin{document}
+
+\maketitle
+\section{Welcome to AI}
+\section{Problem Solving}
+
+Complexity may come from large number of possible choices or from partial observability.
+
+\paragraph{Definition of an problem}
+The problem may be defined by a set of states and functions
+\begin{enumerate}
+  \item Initial state $s$
+  \item Action($s$) $\rightarrow$ $a$ There may be a lot of them forming a set ${a_1, a_2, ...}$ and they may be dependent or independent on a current state
+  \item Result($s,a$) $\rightarrow$ $s'$ Taking initial state and a chosen action gives us the resulting state.
+  \item GoalTest($s$) $\rightarrow$ $s'$ T|F Takes a current states and checks if it is a solution. Returns boolean value.
+  \item PathCost($s,a,s,a,s,...$) $\rightarrow$ $n$ Takes sequence of steps and actions and gives a cost of it as a number. Usually is an additive fuction of StepCosts
+  \item StepCost($s,a,s'$) $rightarrow$ $n$ Gives a cost of one action as a number.
+\end{enumerate}
+
+States space divides into explored part, frontier (which are the farthest state explored) and unexplored part.
+
+\section{Path searching}
+There two search algorithms differ in ``having memory'' - remembering which states are already explored. The tree algorithm does not do that, so it can go back with the explored path to the state it has already been in. The graph search remembers where it has already been and thus never goes back to the previously visited stated.
+\paragraph{Tree search}
+\begin{verbatim}
+function Tree.Search(problem)
+  frontier = {[initial]}
+  loop:
+    if frontier is empty: return FAIL
+    path = remove_choice(frontier)
+    s = path.end
+    if s is a goal: return path
+    for a in actions:
+      add [path + a -> Result(s,a)] to frontier
+\end{verbatim}
+
+\paragraph{Graph search}
+\begin{verbatim}}
+function Tree.Search(problem)
+  frontier = {[initial]}
+  explored = {}
+  loop:
+    if frontier is empty: return FAIL
+    path = remove_choice(frontier)
+    s = path.end
+    add s to explored
+    if s is a goal: return path
+    for a in actions:
+      add [path + a -> Result(s,a)] to frontier 
+      unless Result(s,a) in frontier + explored
+\end{verbatim}
+
+\paragraph{Breadth first search}
+Always chooses the shortest (in term of steps) path to explore next. If there are paths of the same length, it chooses randomly. Is guaranteed to find the shortest (in terms of number of steps) path.
+
+\paragraph{Uniform-cost search - cheapest first}
+It chooses which path to explore next basing on the path cost. Is guaranteed to find the cheapest path, because even if it has already added the goal to the frontier, it firstly explores all the shorter paths and only when the one leading to the goal is the shortest it performs the goal check. 
+
+
+
+\end{document}
