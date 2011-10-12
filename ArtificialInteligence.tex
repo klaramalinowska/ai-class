@@ -26,8 +26,21 @@ The problem may be defined by a set of states and functions
 
 States space divides into explored part, frontier (which are the farthest state explored) and unexplored part.
 
+A problem solving technology works only if:
+\begin{enumerate}
+ \item domain fully observable (we know exactly the current state)
+ \item domain is known (known set of available actions)
+ \item discrete domain (limited amount of possible actions}
+ \item deterministic domain (result of an action is known)
+ \item static domain (nothing changes the space state but we)
+\end{enumerate}
+
+
 \subsection{Path searching}
-There two search algorithms differ in ``having memory'' - remembering which states are already explored. The tree algorithm does not do that, so it can go back with the explored path to the state it has already been in. The graph search remembers where it has already been and thus never goes back to the previously visited stated.
+
+\paragraph{Tree search vs. graph search} 
+
+The two search algorithms differ in ``having memory'' - remembering which states are already explored. The tree algorithm does not do that, so it can go back with the explored path to the state it has already been in. The graph search remembers where it has already been and thus never goes back to the previously visited states.
 \paragraph{Tree search}
 \begin{verbatim}
 function Tree.Search(problem)
@@ -42,7 +55,7 @@ function Tree.Search(problem)
 \end{verbatim}
 
 \paragraph{Graph search}
-\begin{verbatim}}
+\begin{verbatim}
 function Tree.Search(problem)
   frontier = {[initial]}
   explored = {}
@@ -72,4 +85,18 @@ It is $2^n$ for the breadth first search and similar in the uniform-cost search.
 \paragraph{Completeness}
 Algorithm is complete if it will always find the optimal path. Breadth first and uniform-cost search algorithms are complete. The depth first search algorithm is not.
 
+\paragraph{Greedy best-first search}
+It needs additional information to work, eg. estimate of the distance of the start state to the goal such as straight line distance from the state to the goal. It explores much smaller part of the states space that the uniform-cost search, and therefore shall be faster. However, it may not find the shortest path (if it requires going in the direction ``from'' the goal in some steps) - it is not complete.
+
+\subsection{A* search}
+The A* search combines the uniform-cost search and greedy best-first search in its way to determine which path to explore. It chooses the path to explore minimizing on the function h(path) which adds the path cost up to certain state as well as distance from the goal.
+\begin{verbatim}
+f(path) = g(path) + h(path)
+g(path) = path.cost
+h(path) = h(s) = current distance to the goal
+\end{verbatim}
+
+The A* algorithm will always find the lowest cost path if h(s) function is smaller than a true cost to get to the goal from a current state. It should never overestimate the cost to get to the goal, an thus is an  optimistic. Such an h is called \textbf{admissable} (it is admissible to use it to find a lowest cost path). 
 \end{document}
+
+
