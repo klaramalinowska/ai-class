@@ -9,6 +9,20 @@
 
 \maketitle
 \section{Welcome to AI}
+\subsection{Terminology}
+
+\paragraph{Fully/partially observable}
+The environment is fully observable if what the agent can sense at any point of time is sufficient to make and optimal decision. In partially observable environment the memory of previous states is required to make an optimal decision.
+
+\paragraph{Deterministic/stochastic}
+In deterministic environment the effect of an agent actions uniquely determines the outcome. In stochastic environment - the outcome of the action have a certain level of randomness.
+
+\paragraph{Discrete/continuous}
+In discrete environment the finally actions choices and things to sense. In continuous environment there is may be unlimited amount of possible actions or things to sense.
+
+\paragraph{Benign/adversarial}
+The benign environment does not have an objective that contradicts your objective. In adversarial the environment actively observes the agent actions and counteracts with what it is trying to achieve.
+
 \section{Problem Solving}
 
 Complexity may come from large number of possible choices or from partial observability.
@@ -26,13 +40,13 @@ The problem may be defined by a set of states and functions
 
 States space divides into explored part, frontier (which are the farthest state explored) and unexplored part.
 
-A problem solving technology works only if:
+A problem solving technology works only if the domain is:
 \begin{enumerate}
- \item domain fully observable (we know exactly the current state)
- \item domain is known (known set of available actions)
- \item discrete domain (limited amount of possible actions}
- \item deterministic domain (result of an action is known)
- \item static domain (nothing changes the space state but we)
+ \item fully observable (we know exactly the current state)
+ \item known (known set of available actions)
+ \item discrete(limited amount of possible actions)
+ \item deterministic (result of an action is known)
+ \item static (nothing changes the space state but we)
 \end{enumerate}
 
 
