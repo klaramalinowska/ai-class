@@ -111,6 +111,38 @@ h(path) = h(s) = current distance to the goal
 \end{verbatim}
 
 The A* algorithm will always find the lowest cost path if h(s) function is smaller than a true cost to get to the goal from a current state. It should never overestimate the cost to get to the goal, an thus is an  optimistic. Such an h is called \textbf{admissable} (it is admissible to use it to find a lowest cost path). 
+
+\section{Probability in AI}
+
+\subsection{Probability properties}
+\begin{itemize}
+\item \textbf{Complementary events} The event $A$ and its complement $\neg A$ are mutually exclusive and exhaustive.
+\[p(A) = 1 \Rightarrow p(\neg A) = 1-p \]
+\item \textbf{Independence of events} Two events are independent ($A\perp B$) means that the occurrence of one event makes it neither more nor less probable that the other occurs.
+\[ A\perp B \Leftrightarrow P(A,B) = P(A)P(B) \]
+\item \textbf{Conditional probability} is the probability that event A occurs when the sample space is limited to event B. This is read "the probability of A, given B" and denoted as $P(A\mid B)$.
+\[P(\neg A\mid B) = 1-P(A \mid B) \]
+\item \textbf{The law of total probability}
+If $A_i$ is a set of pairwise disjoint events whose union is the entire sample space, then
+\[P(B) = \sum_{i} P(A \mid B_i)P(A_i) \]
+\item \textbf{Bayes rule}
+\[ P(A|B) = \frac{P(B|A)P(A)}{P(B)} \]
+In this expression $P(A|B)$ is called \textbf{posterior} $P(B|A)$ is called \textbf{likelihood}, $P(A)$ is called \textbf{prior} and $P(B)$ is called \textbf{marginal likelihood}. 
+
+The Bayes rule can be written differently using the law of total probability:
+\[ P(A_j|B) = \frac{P(B|A_j)P(A_j)}{\sum_{i} P(A \mid B_i)P(A_i)} \]
+It can be also written ommiting the usage of $P(B)$ by introducing \textbf{normalizer} $\eta$ defined as
+\[ \eta =(P'(A|B)+P'(\neg A|B)) \]
+where
+\[ P'(A|B) = P(B|A)P(A) \]
+\[ P'(\neg A|B) = P(B|\neg A)P(\neg A)\]
+Than the Bayes rule can be written as
+\[ P(A|B) = \eta P'(A|B) \]
+
+\end{itemize}
+
+\subsection{Bayes network}
+
+A Bayes network is a probabilistic graphical model that represents a set of random variables and their conditional dependencies via a directed acyclic graph. The nodes of the graph represent the variables, and the edges represent the conditional dependiencies. 
+
 \end{document}
-
-
