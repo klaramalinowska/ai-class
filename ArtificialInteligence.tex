@@ -127,11 +127,12 @@ If $A_i$ is a set of pairwise disjoint events whose union is the entire sample s
 \[P(B) = \sum_{i} P(A \mid B_i)P(A_i) \]
 \item \textbf{Bayes rule}
 \[ P(A|B) = \frac{P(B|A)P(A)}{P(B)} \]
+\[ P(A|B,C) = \frac{P(B|A,C)P(A)}{P(B|C)} \]
 In this expression $P(A|B)$ is called \textbf{posterior} $P(B|A)$ is called \textbf{likelihood}, $P(A)$ is called \textbf{prior} and $P(B)$ is called \textbf{marginal likelihood}. 
 
 The Bayes rule can be written differently using the law of total probability:
 \[ P(A_j|B) = \frac{P(B|A_j)P(A_j)}{\sum_{i} P(A \mid B_i)P(A_i)} \]
-It can be also written ommiting the usage of $P(B)$ by introducing \textbf{normalizer} $\eta$ defined as
+It can be also written omitting the usage of $P(B)$ by introducing \textbf{normalizer} $\eta$ defined as
 \[ \eta =(P'(A|B)+P'(\neg A|B)) \]
 where
 \[ P'(A|B) = P(B|A)P(A) \]
@@ -139,10 +140,16 @@ where
 Than the Bayes rule can be written as
 \[ P(A|B) = \eta P'(A|B) \]
 
+\item \textbf{Conditional independence} The probability of outcome of two events $T_1$ and $T_2$ is dependent of the state of the event C. Those two events are conditionally independent independent given C if
+\[ P(T_2|C,T_1)=P(T_2|C) \]
+That means that if we know the outcome of event $C$, the probability of outcomes of event $T_2$ does not depend of the outcome of the event $T_1$. The conditional independence of events $T_1$ and $T_2$ given the outcome of event C is denoted as:
+\[T_1 \bot T_2 | C \]
+\item Conditional independence does not imply the absolute independence, and absolute independence does not imply conditional independence.
+
 \end{itemize}
 
 \subsection{Bayes network}
 
-A Bayes network is a probabilistic graphical model that represents a set of random variables and their conditional dependencies via a directed acyclic graph. The nodes of the graph represent the variables, and the edges represent the conditional dependiencies. 
+A Bayes network is a probabilistic graphical model that represents a set of random variables and their conditional dependencies via a directed acyclic graph. The nodes of the graph represent the variables, and the edges represent the conditional dependences. 
 
 \end{document}
