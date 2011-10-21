@@ -148,9 +148,11 @@ That means that if we know the outcome of event $C$, the probability of outcomes
 
 \end{itemize}
 
-\subsection{Bayes network}
+\subsection{Bayes networks}
 
 A Bayes network is a probabilistic graphical model that represents a set of random variables and their conditional dependencies via a directed acyclic graph. The nodes of the graph represent the variables, and the edges represent the conditional dependences. 
+
+Structured Bayes networks need to store much less numerical information than an unstructured representations of probability distributions. Bayes networks are much more compact.
 
 \subsubsection{Basic types of Bayes networks}
 
@@ -164,8 +166,6 @@ To define the network on the left we need three values of probabilities: $P(A)$,
 
 To define the network on the right we need to know $P(D)$, $P(E)$ and $P(F|D,E)$.The probability of different values of the event F is dependent on the values of the events D and E. Thus the event F is conditionally dependent on the events D and E. The events D and E are independent on each other if we don't know the value of the event F, but they are conditionally dependent given the value the event F.
 
-\newpage
-
 \begin{figure}[h!]
 \centering
 \includegraphics[height=0.3\textwidth]{Bayes3.pdf}
@@ -173,5 +173,26 @@ To define the network on the right we need to know $P(D)$, $P(E)$ and $P(F|D,E)$
 To define such a distribution of probabilities we need to know $P(A)$ and $P(B)$, because they don't have the incoming edges, and the conditional distributions $P(C|A,B)$, $P(D|C)$ and $P(E|C)$. Thus we need 10 numerical values (in general $2^n$ values for each node with $n$ incoming edges). The joined distribution of all of the nodes in the network can be calculated as
 \[ P(A,B,C,D,E) = P(A)P(B)P(C|A,B)P(D|C)P(E|C)\]
 
+\subsection{D-separation}
+
+\subsubsection*{Dependent events in the Bayes networks}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[height=0.3\textwidth]{ActiveTriplet.pdf}
+\end{figure}
+
+The events $A$ and $C$ are dependent on each other if they are connected in the Bayes network in the way shown on the image above. The yellow events are in the defined state, while the white events are in the undefined state.
+
+\newpage
+
+\subsubsection*{Independent events in the Bayes networks}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[height=0.3\textwidth]{InactiveTriplet.pdf}
+\end{figure}
+
+The events $A$ and $C$ are independent on each other if they are connected in the Bayes network in the way shown on the image above.
 
 \end{document}
