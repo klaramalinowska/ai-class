@@ -121,6 +121,7 @@ The A* algorithm will always find the lowest cost path if h(s) function is small
 \item \textbf{Independence of events} Two events are independent ($A\perp B$) means that the occurrence of one event makes it neither more nor less probable that the other occurs.
 \[ A\perp B \Leftrightarrow P(A,B) = P(A)P(B) \]
 \item \textbf{Conditional probability} is the probability that event A occurs when the sample space is limited to event B. This is read "the probability of A, given B" and denoted as $P(A\mid B)$.
+\[P(A|B,C) = \frac{P(A,B,C)}{P(B,C)} \]
 \[P(\neg A\mid B) = 1-P(A \mid B) \]
 \item \textbf{The law of total probability}
 If $A_i$ is a set of pairwise disjoint events whose union is the entire sample space, then
@@ -182,7 +183,7 @@ To define such a distribution of probabilities we need to know $P(A)$ and $P(B)$
 \includegraphics[height=0.3\textwidth]{ActiveTriplet.pdf}
 \end{figure}
 
-The events $A$ and $C$ are dependent on each other if they are connected in the Bayes network in the way shown on the image above. The yellow events are in the defined state, while the white events are in the undefined state.
+The events $A$ and $C$ are dependent on each other if they are connected in the Bayes network in the way shown on the image above. The yellow events are in the defined state (they are given, known), while the white events are in the undefined state.
 
 \newpage
 
