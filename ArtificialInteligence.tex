@@ -36,7 +36,7 @@ The problem may be defined by a set of states and functions
   \item Result($s,a$) $\rightarrow$ $s'$ Taking initial state and a chosen action gives us the resulting state.
   \item GoalTest($s$) $\rightarrow$ $s'$ T|F Takes a current states and checks if it is a solution. Returns boolean value.
   \item PathCost($s,a,s,a,s,...$) $\rightarrow$ $n$ Takes sequence of steps and actions and gives a cost of it as a number. Usually is an additive fuction of StepCosts
-  \item StepCost($s,a,s'$) $rightarrow$ $n$ Gives a cost of one action as a number.
+  \item StepCost($s,a,s'$) $\rightarrow$ $n$ Gives a cost of one action as a number.
 \end{enumerate}
 
 States space divides into explored part, frontier (which are the farthest state explored) and unexplored part.
