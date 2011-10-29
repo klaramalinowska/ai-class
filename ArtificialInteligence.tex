@@ -9,6 +9,10 @@
 \begin{document}
 
 \maketitle
+
+\tableofcontents
+\newpage
+
 \section{Welcome to AI}
 \subsection{Terminology}
 
@@ -35,7 +39,7 @@ The problem may be defined by a set of states and functions
   \item Action($s$) $\rightarrow$ $a$ There may be a lot of them forming a set ${a_1, a_2, ...}$ and they may be dependent or independent on a current state
   \item Result($s,a$) $\rightarrow$ $s'$ Taking initial state and a chosen action gives us the resulting state.
   \item GoalTest($s$) $\rightarrow$ $s'$ T|F Takes a current states and checks if it is a solution. Returns boolean value.
-  \item PathCost($s,a,s,a,s,...$) $\rightarrow$ $n$ Takes sequence of steps and actions and gives a cost of it as a number. Usually is an additive fuction of StepCosts
+  \item PathCost($s,a,s,a,s,...$) $\rightarrow$ $n$ Takes sequence of steps and actions and gives a cost of it as a number. Usually is an additive function of StepCosts
   \item StepCost($s,a,s'$) $\rightarrow$ $n$ Gives a cost of one action as a number.
 \end{enumerate}
 
@@ -110,7 +114,7 @@ g(path) = path.cost
 h(path) = h(s) = current distance to the goal
 \end{verbatim}
 
-The A* algorithm will always find the lowest cost path if h(s) function is smaller than a true cost to get to the goal from a current state. It should never overestimate the cost to get to the goal, an thus is an  optimistic. Such an h is called \textbf{admissable} (it is admissible to use it to find a lowest cost path). 
+The A* algorithm will always find the lowest cost path if h(s) function is smaller than a true cost to get to the goal from a current state. It should never overestimate the cost to get to the goal, an thus is an  optimistic. Such an h is called \textbf{admissible} (it is admissible to use it to find a lowest cost path). 
 
 \section{Probability in AI}
 
@@ -176,9 +180,8 @@ To define the network on the right we need to know $P(D)$, $P(E)$ and $P(F|D,E)$
 To define such a distribution of probabilities we need to know $P(A)$ and $P(B)$, because they don't have the incoming edges, and the conditional distributions $P(C|A,B)$, $P(D|C)$ and $P(E|C)$. Thus we need 10 numerical values (in general $2^n$ values for each node with $n$ incoming edges). The joined distribution of all of the nodes in the network can be calculated as
 \[ P(A,B,C,D,E) = P(A)P(B)P(C|A,B)P(D|C)P(E|C)\]
 
-\subsection{D-separation}
-
-\subsubsection*{Dependent events in the Bayes networks}
+\subsubsection{D-separation}
+\paragraph*{Dependent events in the Bayes networks}
 
 \begin{figure}[h!]
 \centering
@@ -187,9 +190,8 @@ To define such a distribution of probabilities we need to know $P(A)$ and $P(B)$
 
 The events $A$ and $C$ are dependent on each other if they are connected in the Bayes network in the way shown on the image above. The yellow events are in the defined state (they are given, known), while the white events are in the undefined state.
 
-\newpage
 
-\subsubsection*{Independent events in the Bayes networks}
+\paragraph*{Independent events in the Bayes networks}
 
 \begin{figure}[h!]
 \centering
@@ -202,17 +204,17 @@ The events $A$ and $C$ are independent on each other if they are connected in th
 
 Machine learning is the major area of artificial intelligence.
 
-In machine learning we try to learn models, \textbf{structure}, \textbf{parameters} and \textbf{hidden concepts} from avilable data. We may use different target informatio. In \textbf{supervised learning} we use specific target labels, in \textbf{unsupervised learning} the target labels are missing and we use replacement principles and in \textbf{reinforced leining} the agent learn from the feedback from the emvironment. 
+In machine learning we try to learn models, \textbf{structure}, \textbf{parameters} and \textbf{hidden concepts} from available data. We may use different target information. In \textbf{supervised learning} we use specific target labels, in \textbf{unsupervised learning} the target labels are missing and we use replacement principles and in \textbf{reinforced learning} the agent learn from the feedback from the environment. 
 
-With machine learning we can make \textbf{predictions}, \textbf{diagnose}, \textbf{summarize}. The learning may be \textbf{passive}, when the agent does not impact the data or \textbf{active} where id does influence it. It may occure \textbf{online}, while the data is being generated or \textbf{offline}, on the data already generated.
+With machine learning we can make \textbf{predictions}, \textbf{diagnose}, \textbf{summarize}. The learning may be \textbf{passive}, when the agent does not impact the data or \textbf{active} where id does influence it. It may occur \textbf{on-line}, while the data is being generated or \textbf{off-line}, on the data already generated.
 
-The output may be binary or is having the fixed number of clases (\textbf{classification}) or continious (\textbf{regression}). \textbf{Generative} machine learning metods try to model the data as gererally as possible and \textbf{discriminative} methods seek to sictinguish data.
+The output may be binary or is having the fixed number of classes (\textbf{classification}) or continuous (\textbf{regression}). \textbf{Generative} machine learning methods try to model the data as generally as possible and \textbf{discriminative} methods seek to distinguish data.
 
 \section{Supervised machine learning}
 
-In the supervised learning in each training example the \textbf{feature vector} and the \textbf{target label} are given. Basing on the trainig examples we wish to produce an fuction that predicts the target label basing on feature vector.
+In the supervised learning in each training example the \textbf{feature vector} and the \textbf{target label} are given. Basing on the training examples we wish to produce an fiction that predicts the target label basing on feature vector.
 
-The data (feature vectors $x_m=(x_{m1}, x_{m2}, ... x_{mn})$ and target labes $y_m$) may be denoted:
+The data (feature vectors $x_m=(x_{m1}, x_{m2}, ... x_{mn})$ and target labels $y_m$) may be denoted:
 \[
 \left[ \begin{array}{ccccccc}
 x_{11} & x_{12} & x_{13} & \cdots & x_{1n} & \rightarrow & y_1 \\
@@ -222,36 +224,43 @@ x_{m1} & x_{m2} & x_{m3} & \cdots & x_{mn} & \rightarrow & y_m \end{array} \righ
 \]
 The function we seek basing on data is denoted $f(x_m)=y_m$. The certain amount of error in training data is usually tolerated. Then we use this function to make predictions $f(x)=y$.
 
+We talk about \textbf{classification} problem if the target label is discrete. Problems where the target label is continuous are called \textbf{regression} problems. In regression problems we can't use the Bayes networks, because they can't handle continuous values.
+
 \subsection{Occam Razor}
-\begin{center}\textit{If everything is being equal, choose the less complex hipothesis.}\end{center}
-Usually we can fit the data with many functions and we always have the tradeoff between data fit and low complexity. The more complex the hipothesis, the smaller the \textbf{training data error}, but the \textbf{overfitting error} tends to get bigger. The sum of the training data error and overfitting error is called \textbf{generalization} error and should be minimalized to get the best fit. Overfitting is the major source of the poor performance of the AI algorithms. 
+\begin{center}\textit{If everything is being equal, choose the less complex hypothesis.}\end{center}
+Usually we can fit the data with many functions and we always have the trade-off between data fit and low complexity. The more complex the hypothesis, the smaller the \textbf{training data error}, but the \textbf{over-fitting error} tends to get bigger. The sum of the training data error and over-fitting error is called \textbf{generalization} error and should be minimized to get the best fit. Over-fitting is the major source of the poor performance of the AI algorithms. 
 \vspace{1em}
 
 \begin{center}
 \includegraphics[width=0.7\textwidth]{OccamRazor.png}
 \end{center}
 
-\subsection{Spam detection}
+\subsection{Classification by Naive Bayes}
 
-In spam detection target label is mail being either spam or ham, and feature vector is an email content. Text document can be represented as \textbf{bag of words} - the dictionary of words with their number of occurences in the text.
+\subsubsection{Spam detection}
+
+In spam detection target label is mail being either spam or ham, and feature vector is an email content. Text document can be represented as \textbf{bag of words} - the dictionary of words with their number of occurrences in the text.
+
+We can construct a Bayes network representing spam detection problem as shown below. The node $Y$ represents the target label variable and the children nodes $X_n$ representing elements of feature vector (here words from bag of words) and their conditional probability of occurrence for given value of $Y$. The goal of algorithm is to find the parameters in given Bays network basing on test examples.
+
+\begin{center}
+\includegraphics[width=0.2\textwidth]{NaiveBayes.pdf}
+\end{center}
 
 In this simple method the probability that message $M$ consisting of words $M_1$, $M_2$, ... $M_n$ is a spam is given by the expression:
-\[ p(spam|M) = \frac{p(M|spam)p(spam)}{p(M)} = \]
+\[ p(spam|M) = \frac{p(M|spam)p(spam)}{p(M)} = \frac{p(M|spam)p(spam)}{p(M|spam)p(spam) + p(M|ham)p(ham)} = \]
 \[ = \frac{p(M_1|spam)\cdot ...\cdot p(M_n|spam)p(spam)}{p(M_1|spam)\cdot ...\cdot p(M_n|spam)p(spam) + p(M_1|ham)\cdot ...\cdot p(M_n|ham)p(ham)}  \]
-
 The probabilities in this expression can be estimated basing on training data in different ways.
 
-\subsubsection*{Maximum likelihood}
+\paragraph*{Maximum likelihood}
 
 In the maximum likelihood method we estimate the probability of the variable x having the given value in the simple way, that is:
 \[p(x) = \frac{\mathrm{count}(x)}{N} \]
+The maximum likelihood tends to over-fit the training data - if the message M contains a single word which did not occur in the training examples of spam messages, the probability of this message being spam is calculated as 0.
 
-The maximum likelihood tends to overfit the training data - if the message M contains a single word which did not occure in the training examples of smap messages, the probability of this message being spam is calculated as 0.
+\paragraph*{Laplace smoothing}
 
-
-\subsubsection*{Laplace Smoothing}
-
-In Laplace Smoothing method we use a different way to estimate probability of variable x having given value. We indroduce an additional parameter $k$:
+In Laplace smoothing method we use a different way to estimate probability of variable x having given value. We introduce an additional parameter $k$:
 \[ p(x) = \frac{\mathrm{count}(x)+k}{N+k\cdot |x|} \]
 The variables used in this mathematical descriptions are:
 \begin{itemize}
@@ -263,5 +272,38 @@ The variables used in this mathematical descriptions are:
 \item count($x$) is the number of occurrences of specific value of the variable x
 \item $N$ is the total number of occurrences of x (the variable, not the value) in the sample size
 \end{itemize}
+
+\paragraph*{Cross validation}
+
+It is a method to avoid over-fitting and find a good parameter k in the Laplace smoothing. It needs a big set of training data to work correctly.
+
+The set of training data is divided into three subsets: "train" set ($~$80\%), "cross-validate" set ($~$10\%) and "test" set ($~$10\%). The train set is used to find all the parameters of Bayes network. It is done for the different values of $k$ and then the cross-validate set is used to determine which value of $k$ maximizes the efficiency of the algorithm. At the end the performance is (only once) validated on test set of training data.
+
+\subsection{Regression}
+\subsubsection{Linear regression}
+
+In linear regression the function $f(x)=y$ we look for basing on training set consisting of feature vectors $x_m=(x_{m1}, x_{m2}, ... x_{mn})$ and target labels $y_m$ is having a specific form:
+\[ f(x) = w_1x+w_0\]
+
+The goal of the linear regression is to minimize the \textbf{loss function} describing the residual error after fitting the data as good as possible. In can be described by quadratic error:
+\[\mathrm{LOSS} = \sum_{j} \left( y_j - w_1 x_j - w_0\right)^2\]
+The $j$ enumerates all the training examples. The optimal set of parameters $w^*$ can be described as
+\[w^* = \min_w \mathrm{LOSS} = \min_w \sum_{j} \left( y_j - w_1 x_j - w_0\right)^2 \]
+This minimization can be solved explicitly giving the answer:
+\[ w_1^* = \frac{M \sum x_i y_i - \sum x_i \sum y_i}{M \sum x_i^2 - \left( \sum x_i \right)^2 } \]
+\[ w_0^* = \frac{1}{M} \sum  y_i - \frac{w_1}{M}\sum x_i \]
+
+The drawbacks of the linear regression are:\begin{itemize}
+\item it is suitable only for linear data,
+\item one training data point being very far from linearity (while all the other points are more or less on the line) tends to spoil the outcome
+\item for value of $x$ going to infinity $y$ also goes to infinity, which is sometimes undesirable.
+\end{itemize}
+
+\subsubsection{Logistic regression}
+
+In logistic regression the problem of $y$ going to infinity with growing $x$ is addressed. The function we fit is:
+\[ g(x) = \frac{1}{1+e^{-f(x)}} \]
+where $f(x)$ is a linear function. 
+\[g(x) \in (0,1)\]
 
 \end{document}
