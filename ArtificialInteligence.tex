@@ -226,6 +226,8 @@ The function we seek basing on data is denoted $f(x_m)=y_m$. The certain amount 
 
 We talk about \textbf{classification} problem if the target label is discrete. Problems where the target label is continuous are called \textbf{regression} problems. In regression problems we can't use the Bayes networks, because they can't handle continuous values.
 
+The supervised learning methods can be divided into \textbf{parametric} and \textbf{non-parametric} methods. In parametric methods the number of parameters that algorithm have to figure out is independent of the training set size. Parametric methods include Naive Bayes and linear regression. In non-parametric methods the number of parameters can grow over time.
+
 \subsection{Occam Razor}
 \begin{center}\textit{If everything is being equal, choose the less complex hypothesis.}\end{center}
 Usually we can fit the data with many functions and we always have the trade-off between data fit and low complexity. The more complex the hypothesis, the smaller the \textbf{training data error}, but the \textbf{over-fitting error} tends to get bigger. The sum of the training data error and over-fitting error is called \textbf{generalization} error and should be minimized to get the best fit. Over-fitting is the major source of the poor performance of the AI algorithms. 
@@ -235,9 +237,9 @@ Usually we can fit the data with many functions and we always have the trade-off
 \includegraphics[width=0.7\textwidth]{OccamRazor.png}
 \end{center}
 
-\subsection{Classification by Naive Bayes}
+\subsection{Classification}
 
-\subsubsection{Spam detection}
+\subsubsection{Spam detection by Naive Bayes}
 
 In spam detection target label is mail being either spam or ham, and feature vector is an email content. Text document can be represented as \textbf{bag of words} - the dictionary of words with their number of occurrences in the text.
 
@@ -279,6 +281,37 @@ It is a method to avoid over-fitting and find a good parameter k in the Laplace 
 
 The set of training data is divided into three subsets: "train" set ($~$80\%), "cross-validate" set ($~$10\%) and "test" set ($~$10\%). The train set is used to find all the parameters of Bayes network. It is done for the different values of $k$ and then the cross-validate set is used to determine which value of $k$ maximizes the efficiency of the algorithm. At the end the performance is (only once) validated on test set of training data.
 
+\subsubsection{Perception algorithm}
+
+This is an algorithm to find a \textbf{linear separator} between the two sets of data, as shown on the picture. It only converges if data is linearly separable.
+
+\begin{center}
+\includegraphics[width=0.5\textwidth]{PerceptionAlgorithm.png}
+\end{center}
+
+The linear separation classification function is:
+\[
+  f(x) = \left\{ 
+  \begin{array}{l l l}
+    1 & \mathrm{if} & w_1 x + w_0 \geq 0\\
+    0 & \mathrm{if} & w_1 x + w_0 < 0\\
+  \end{array} \right.
+\]
+To start the algorithm we randomly choose values for $w_0$ and $w_1$ and then calculate the followinf iteration steps:
+\[ w_i^{m+1} = w_i^m + \alpha (y_j - f(x_j) ) \]
+$\alpha$ is a small \textbf{learning rate} and parenthesis $(y_j - f(x_j))$ are the error for the $j$ data point. Thus only where the point is not given the right label by the function $f(x)$, the update occurs and the update is proportional to the size of the error.
+
+\subsubsection*{k-Nearest neighbours}
+
+In this algorithm for separation in the learning process memorizes all the test vectors and their labels. Then given the new example it finds the k nearest neighbours from the training set and chooses for the new example the label that majority of the neighbours is having.
+
+The value of k is a \textbf{regularizer}. The higher the k, the smoother the separation boundaries are becoming. The cross-validation can be used to choose value of k.
+
+For the very large data sets the k-Nearest neighbours algorithm is slow, because it searches a big dataset to find the neighbours. The solution may be to represent the data as a tree.
+
+The very large feature spaces also causes the problems, because most of the neighbours are really far away from each other. Thus the k-Nearest neighbours works good only for small feature spaces, having up to 4 dimensions.
+
+
 \subsection{Regression}
 \subsubsection{Linear regression}
 
@@ -305,5 +338,20 @@ In logistic regression the problem of $y$ going to infinity with growing $x$ is 
 \[ g(x) = \frac{1}{1+e^{-f(x)}} \]
 where $f(x)$ is a linear function. 
 \[g(x) \in (0,1)\]
+
+\subsubsection{Regularization (complexity control)}
+
+The LOSS function can be modified to include the complexity control term, depending of parameters, penalize the parameters for growing large.
+
+\[\mathrm{LOSS} = \mathrm{LOSS}(data) + \mathrm{LOSS}(parameters) = \]
+\[ = \sum_{j} \left( y_j - w_1 x_j - w_0\right)^2 + \sum_i (w_i)^p \; \; \; \; \; p \in {1,2} \]
+
+\subsubsection{Gradient descent}
+
+Minimizing the loss functions more complicated than for linear regression usually does not have the closed form solution. We need to use the other methods, such as iteration methods.
+
+In this method we start with initial guess of $w^0$. Then we compute the next approximations from the formula
+\[w^{i+1} = w^i - \alpha \nabla_{w} L(w^i) \] 
+The drawback of the gradient descent method is that it may find only the local minimum of the function, not the global minimum.
 
 \end{document}
