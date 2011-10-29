@@ -155,6 +155,8 @@ A Bayes network is a probabilistic graphical model that represents a set of rand
 
 Structured Bayes networks need to store much less numerical information than an unstructured representations of probability distributions. Bayes networks are much more compact.
 
+They are used to reason within known models, that can be described mathematically as beysesian networks.
+
 \subsubsection{Basic types of Bayes networks}
 
 \begin{figure}[h!]
@@ -195,5 +197,71 @@ The events $A$ and $C$ are dependent on each other if they are connected in the 
 \end{figure}
 
 The events $A$ and $C$ are independent on each other if they are connected in the Bayes network in the way shown on the image above.
+
+\part*{Machine learning}
+
+Machine learning is the major area of artificial intelligence.
+
+In machine learning we try to learn models, \textbf{structure}, \textbf{parameters} and \textbf{hidden concepts} from avilable data. We may use different target informatio. In \textbf{supervised learning} we use specific target labels, in \textbf{unsupervised learning} the target labels are missing and we use replacement principles and in \textbf{reinforced leining} the agent learn from the feedback from the emvironment. 
+
+With machine learning we can make \textbf{predictions}, \textbf{diagnose}, \textbf{summarize}. The learning may be \textbf{passive}, when the agent does not impact the data or \textbf{active} where id does influence it. It may occure \textbf{online}, while the data is being generated or \textbf{offline}, on the data already generated.
+
+The output may be binary or is having the fixed number of clases (\textbf{classification}) or continious (\textbf{regression}). \textbf{Generative} machine learning metods try to model the data as gererally as possible and \textbf{discriminative} methods seek to sictinguish data.
+
+\section{Supervised machine learning}
+
+In the supervised learning in each training example the \textbf{feature vector} and the \textbf{target label} are given. Basing on the trainig examples we wish to produce an fuction that predicts the target label basing on feature vector.
+
+The data (feature vectors $x_m=(x_{m1}, x_{m2}, ... x_{mn})$ and target labes $y_m$) may be denoted:
+\[
+\left[ \begin{array}{ccccccc}
+x_{11} & x_{12} & x_{13} & \cdots & x_{1n} & \rightarrow & y_1 \\
+x_{21} & x_{22} & x_{23} & \cdots & x_{2n} & \rightarrow & y_2  \\
+	&      & \vdots &      &      &             &      \\
+x_{m1} & x_{m2} & x_{m3} & \cdots & x_{mn} & \rightarrow & y_m \end{array} \right]
+\]
+The function we seek basing on data is denoted $f(x_m)=y_m$. The certain amount of error in training data is usually tolerated. Then we use this function to make predictions $f(x)=y$.
+
+\subsection{Occam Razor}
+\begin{center}\textit{If everything is being equal, choose the less complex hipothesis.}\end{center}
+Usually we can fit the data with many functions and we always have the tradeoff between data fit and low complexity. The more complex the hipothesis, the smaller the \textbf{training data error}, but the \textbf{overfitting error} tends to get bigger. The sum of the training data error and overfitting error is called \textbf{generalization} error and should be minimalized to get the best fit. Overfitting is the major source of the poor performance of the AI algorithms. 
+\vspace{1em}
+
+\begin{center}
+\includegraphics[width=0.7\textwidth]{OccamRazor.png}
+\end{center}
+
+\subsection{Spam detection}
+
+In spam detection target label is mail being either spam or ham, and feature vector is an email content. Text document can be represented as \textbf{bag of words} - the dictionary of words with their number of occurences in the text.
+
+In this simple method the probability that message $M$ consisting of words $M_1$, $M_2$, ... $M_n$ is a spam is given by the expression:
+\[ p(spam|M) = \frac{p(M|spam)p(spam)}{p(M)} = \]
+\[ = \frac{p(M_1|spam)\cdot ...\cdot p(M_n|spam)p(spam)}{p(M_1|spam)\cdot ...\cdot p(M_n|spam)p(spam) + p(M_1|ham)\cdot ...\cdot p(M_n|ham)p(ham)}  \]
+
+The probabilities in this expression can be estimated basing on training data in different ways.
+
+\subsubsection*{Maximum likelihood}
+
+In the maximum likelihood method we estimate the probability of the variable x having the given value in the simple way, that is:
+\[p(x) = \frac{\mathrm{count}(x)}{N} \]
+
+The maximum likelihood tends to overfit the training data - if the message M contains a single word which did not occure in the training examples of smap messages, the probability of this message being spam is calculated as 0.
+
+
+\subsubsection*{Laplace Smoothing}
+
+In Laplace Smoothing method we use a different way to estimate probability of variable x having given value. We indroduce an additional parameter $k$:
+\[ p(x) = \frac{\mathrm{count}(x)+k}{N+k\cdot |x|} \]
+The variables used in this mathematical descriptions are:
+\begin{itemize}
+\setlength{\itemsep}{0pt}
+\setlength{\parskip}{0pt}
+\setlength{\parsep}{0pt}
+\item $x$ is a variable
+\item $|x|$ is the number of values that the variable x can take on
+\item count($x$) is the number of occurrences of specific value of the variable x
+\item $N$ is the total number of occurrences of x (the variable, not the value) in the sample size
+\end{itemize}
 
 \end{document}
