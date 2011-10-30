@@ -1,6 +1,7 @@
 \documentclass[a4paper,10pt]{article}
 \usepackage[utf8]{inputenc}
 \usepackage{graphicx}
+\usepackage{hyperref}
 
 %opening
 \title{Artificial Intelligence \\ notes}
@@ -200,6 +201,23 @@ The events $A$ and $C$ are dependent on each other if they are connected in the 
 
 The events $A$ and $C$ are independent on each other if they are connected in the Bayes network in the way shown on the image above.
 
+\subsection{Gaussian distribution}
+
+Gaussian distribution (normal distribution) is a \textbf{continuous probability distribution} that is often used as a first approximation to describe real-valued random variables that tend to cluster around a single mean value $\mu$ with the variance $\sigma^2$.
+
+\begin{figure}[h!]
+\centering
+\includegraphics[height=0.25\textwidth]{Gaussian.png}
+\end{figure}
+Gaussian distribution is mathematically described by the function:
+\[ f(x) = \frac{1}{\sqrt{2 \pi }\sigma} \exp \left(- \frac{1}{2} \frac{(x-\mu)^2}{\sigma^2} \right) \]
+The integral of Gaussian function is 0, and it's maximum is at $x=\mu$.
+
+\paragraph{Multivariate Gaussian}
+In the $N$-dimensional space the multivariate Gaussian distribution is used, given by the formula:
+\[ f(x) = (2 \pi)^{-\frac{N}{2}}) | \Sigma |^{\frac{1}{2}} \exp \left(- \frac{1}{2} (x-\mu)^T \Sigma^{-1} (x-\mu) \right) \]
+where $\Sigma$ is the covariance matrix.
+
 \part*{Machine learning}
 
 Machine learning is the major area of artificial intelligence.
@@ -281,7 +299,8 @@ It is a method to avoid over-fitting and find a good parameter k in the Laplace 
 
 The set of training data is divided into three subsets: "train" set ($~$80\%), "cross-validate" set ($~$10\%) and "test" set ($~$10\%). The train set is used to find all the parameters of Bayes network. It is done for the different values of $k$ and then the cross-validate set is used to determine which value of $k$ maximizes the efficiency of the algorithm. At the end the performance is (only once) validated on test set of training data.
 
-\subsubsection{Perception algorithm}
+\subsubsection{Perception algorithms}
+\paragraph{Linear separation}
 
 This is an algorithm to find a \textbf{linear separator} between the two sets of data, as shown on the picture. It only converges if data is linearly separable.
 
@@ -301,7 +320,7 @@ To start the algorithm we randomly choose values for $w_0$ and $w_1$ and then ca
 \[ w_i^{m+1} = w_i^m + \alpha (y_j - f(x_j) ) \]
 $\alpha$ is a small \textbf{learning rate} and parenthesis $(y_j - f(x_j))$ are the error for the $j$ data point. Thus only where the point is not given the right label by the function $f(x)$, the update occurs and the update is proportional to the size of the error.
 
-\subsubsection*{k-Nearest neighbours}
+\paragraph{k-Nearest neighbours}
 
 In this algorithm for separation in the learning process memorizes all the test vectors and their labels. Then given the new example it finds the k nearest neighbours from the training set and chooses for the new example the label that majority of the neighbours is having.
 
@@ -353,5 +372,55 @@ Minimizing the loss functions more complicated than for linear regression usuall
 In this method we start with initial guess of $w^0$. Then we compute the next approximations from the formula
 \[w^{i+1} = w^i - \alpha \nabla_{w} L(w^i) \] 
 The drawback of the gradient descent method is that it may find only the local minimum of the function, not the global minimum.
+
+\section{Unsupervised learning}
+
+In the unsupervised learning the agent is given the data matrix consisting of \textbf{M data items} of \textbf{N features} each. However, no target labels are given, unlike in supervised learning. The task for the unsupervised learning is to find a structure of the data of this type.
+
+\[
+\left[ \begin{array}{ccccc}
+x_{11} & x_{12} & x_{13} & \cdots & x_{1n}  \\
+x_{21} & x_{22} & x_{23} & \cdots & x_{2n}  \\
+	&      & \vdots &      &      \\
+x_{m1} & x_{m2} & x_{m3} & \cdots & x_{mn} \end{array} \right]
+\]
+\subsection{Gaussian learning}
+The problem we want to solve is what is the Gaussian function best fitting the given data. The parameters of Gaussian function are mean $\mu$ and variance $\sigma^2$ in one-dimensional case.
+
+\[ f(x|\mu, \sigma^2) = \frac{1}{\sqrt{2 \pi \sigma^2 }} \exp \left(-\frac{(x-\mu)^2}{2 \sigma^2} \right) \]
+
+To fit Gaussian function to the data we take $\mu$ as the average of data and $\sigma^2$ as the average quadratic deviation of the data:
+\[ \mu = \frac{1}{M} \sum_{j=1}^M x_j \]
+\[ \sigma^2 = \frac{1}{M} \sum_{j=1}^M (x_j - \mu)^2 \]
+
+\subsection{Density estimation}
+
+I the data is independent and identically distributed \textbf{iid}, which means each random variable has the same probability distribution as the others and all are mutually independent, we can try to recover the density of probability distribution that generated the data.
+
+Methods used for this task include \textbf{clustering} and \textbf{dimensionality reduction}.
+
+\subsubsection{Clustering}
+
+\paragraph{k-means}
+
+This method estimates, for the fixed number of k, the k best centres of clusters representing given data points. The algorithm is iterative:
+
+\begin{verbatim}
+initially: select k cluster centres of random
+  repeat
+    correspond the data points to nearest clusters
+    update the cluster center by mean of corresponding data points
+    empty cluster centres: restart of random
+  until
+    no change
+\end{verbatim}
+
+The problems with k-means algorithm include the need to know the number of clusters we look for, the danger of finding the local minima by the algorithm instead of global minima, the problem of calculating distances for the high-dimensional problem and the lack of the mathematical basis of the algorithm. The advantage is that the algorithm is easy to implement.
+
+\paragraph{Expectation maximization}
+
+This algorithm is the generalization of k-means algorithm.
+
+
 
 \end{document}
