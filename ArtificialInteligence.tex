@@ -421,6 +421,86 @@ The problems with k-means algorithm include the need to know the number of clust
 
 This algorithm is the generalization of k-means algorithm.
 
+%TODO
 
+\section{Representation with logic}
+
+\subsection{Prepositional logic}	
+
+In prepositional logic the state of each variable is either true, false or unknown. 
+We use the logical symbols to construct the sentences:
+\begin{itemize}
+\setlength{\itemsep}{0pt}
+\setlength{\parskip}{0pt}
+\setlength{\parsep}{0pt}
+\item $\vee$ logical disjunction (or)
+\item $\wedge$ logical conjunction (and)
+\item $\Rightarrow$ implication (if ... then)
+\item $\Leftrightarrow$ equivalence (if and only if)
+\item $\lnot$ negation (not)
+\end{itemize}
+Each prepositional logic sentence is true or false with respect to the model of the world. The model is the set of true-false valued of all the prepositional symbols. We can evaluate the truth of the sentence depending of truth ow the words using \textbf{truth tables}.
+
+\begin{displaymath}
+\begin{array}{|c|c||c|c|c|c|c|}
+\hline
+   P & Q & \lnot{}P & P\land{}Q & P\lor{}Q & P\Rightarrow{}Q & P\Leftrightarrow{}Q \\
+\hline
+false & false & true & false & false & true & true \\
+false & true & true & false & true & true & false \\
+true & false & false & false & true & false & false \\
+true & true & false & true & true & true & true \\
+\hline
+\end{array}
+\end{displaymath}
+
+\textbf{Valid sentence} is a sentence true in every possible model - for every possible combination of values of propositional symbols. \textbf{Satisfiable sentence} is one that is true in some model but not necessarily all of the models. \textbf{Unsatisfiable sentence} is the one which is false for all the models.
+
+Limitations of propositional logic:\begin{itemize}
+\setlength{\itemsep}{0pt}
+\setlength{\parskip}{0pt}
+\setlength{\parsep}{0pt}
+\item It is unable to handle uncertainty
+\item It can talk only about events that are true or false. It can't talk about objects, their properties and relations between them.
+\item There are no short-cuts. 
+\end{itemize}
+
+\section{First order logic}
+
+It is the extension of prepositional logic which can describe relations, objects and their functions.  Each of those can be either true, false or unknown.
+
+The model in first order logic consists of the set of \textbf{objects}, set of \textbf{constants} that refer to those objects (but it does not have to be one-to-one correspondence between constants and the objects) and the set of \textbf{functions}, which are defined as mappings from objects to objects. There are also \textbf{relations}, defined on one, many or no object at all.
+
+In first order logic here are \textbf{sentences} describing facts and \textbf{terms} describing objects. 
+
+Terms can be constants, variables and functions. Sentences correspond to relations (and specifically to equality relations), and they can be combined by operators same as in perceptional logic: $\vee$ $\wedge$ $\Rightarrow$ $\Leftrightarrow$ $\lnot$. To construct sentences we can also use \textbf{quantifiers}:
+\begin{itemize}
+\setlength{\itemsep}{0pt}
+\setlength{\parskip}{0pt}
+\setlength{\parsep}{0pt}
+\item $\forall$ for all
+\item $\exists$ there exists
+\end{itemize}
+
+\subsubsection*{Vacuum world}
+
+The example of world that can be described by first-order logic is an vacuum world.
+
+\begin{figure}[h!]
+\centering
+\includegraphics[height=0.3\textwidth]{vacuum_world.png}
+\end{figure}
+
+The \textbf{objects} in this world are locations $A$ and $B$, vacuum cleaner $V$ and two pieces of dirt $D_1$ and $D_2$. The \textbf{relations } are $Loc(x)$ (true for any location), $Vacuum(x)$ (true for any vacuum, $Dirt(x)$ (true for any dirt) and add $A+(x,y)$ which is true for an object and an location.
+
+Examples of the sentences in the vacuum world are:
+\begin{itemize}
+\setlength{\itemsep}{0pt}
+\setlength{\parskip}{0pt}
+\setlength{\parsep}{0pt}
+\item $A+(V,A)$ \\Vacuum is at location A.
+\item $\forall_d \forall_l \; Dirt(d) \vee Loc(l) \Rightarrow \lnot A+(d,l)$ \\There is no dirt in any location.
+\item $\exists_l \exists_d \; Dirt(d) \vee Loc(l) \vee A+(V,l) \vee A+(d,l) $ \\The vacuum is in the location with dirt.
+\end{itemize}
 
 \end{document}
