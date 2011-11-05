@@ -503,4 +503,20 @@ Examples of the sentences in the vacuum world are:
 \item $\exists_l \exists_d \; Dirt(d) \vee Loc(l) \vee A+(V,l) \vee A+(d,l) $ \\The vacuum is in the location with dirt.
 \end{itemize}
 
+\section{Planning}
+
+The problem solving techniques work only if the environment is deterministic fully observable. Using planning techniques we can relax those constraints. In planning methods the given task is realized by agent using the constant feedback from the environment, so that during executing some plan this plan is constantly modified to fit better to the environment the agent interacts with.
+
+If the environment is \textbf{stochastic} we can't know for sure what will be the result of our action, and we have to react accordingly to this effect. If the environment is \textbf{multiagent}  we have to react to the behaviour of the other agents which is known only at the execution time, not at the planning time. If the environment is \textbf{partially observable} we don't know from the beginning what is the state of the environment - we learn that only during the execution. In all those situations planning techniques are suitable.
+
+To solve those problems we can plan in the space \textbf{belief states} instead of the space of real states.
+
+\subsection{Belief states space}
+
+Belief states space contains all states that agent can be in basing on the information available about partially-observable environment. Space of belief states changes when agent performs action or senses the environment - the states themselves can change as well as the dimensionality of the space.
+
+In \textbf{deterministic environments} each action taken is having the one possible result, and thus action taken by agent can preserve or reduce the dimensionality of the belief states space. The dimensionality is reduced if actions starting from different states lead to the same state. Observation (sensing the environment) also can preserve dimensionality, if we don't learn anything new about the environment, or reduce it when new information is gained. In fact it partitions the belief states space.
+
+In \textbf{stochastic environments} when agent takes action the dimensionality of belief states space increases, because the result of the action is not known - there may be many results with different possibilities of occurrence. On the other hand sensing environment can, as in deterministic environment, only preserve or reduce the dimensionality.
+
 \end{document}
