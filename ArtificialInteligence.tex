@@ -124,7 +124,7 @@ The A* algorithm will always find the lowest cost path if h(s) function is small
 \item \textbf{Complementary events} The event $A$ and its complement $\neg A$ are mutually exclusive and exhaustive.
 \[p(A) = 1 \Rightarrow p(\neg A) = 1-p \]
 \item \textbf{Independence of events} Two events are independent ($A\perp B$) means that the occurrence of one event makes it neither more nor less probable that the other occurs.
-\[ A\perp B \Leftrightarrow P(A,B) = P(A)P(B) \]
+\[ A\perp B \iff P(A,B) = P(A)P(B) \]
 \item \textbf{Conditional probability} is the probability that event A occurs when the sample space is limited to event B. This is read "the probability of A, given B" and denoted as $P(A\mid B)$.
 \[P(A|B,C) = \frac{P(A,B,C)}{P(B,C)} \]
 \[P(\neg A\mid B) = 1-P(A \mid B) \]
@@ -433,10 +433,10 @@ We use the logical symbols to construct the sentences:
 \setlength{\itemsep}{0pt}
 \setlength{\parskip}{0pt}
 \setlength{\parsep}{0pt}
-\item $\vee$ logical disjunction (or)
-\item $\wedge$ logical conjunction (and)
+\item $\lor$ logical disjunction (or)
+\item $\land$ logical conjunction (and)
 \item $\Rightarrow$ implication (if ... then)
-\item $\Leftrightarrow$ equivalence (if and only if)
+\item $\iff$ equivalence (if and only if)
 \item $\lnot$ negation (not)
 \end{itemize}
 Each prepositional logic sentence is true or false with respect to the model of the world. The model is the set of true-false valued of all the prepositional symbols. We can evaluate the truth of the sentence depending of truth ow the words using \textbf{truth tables}.
@@ -444,7 +444,7 @@ Each prepositional logic sentence is true or false with respect to the model of 
 \begin{displaymath}
 \begin{array}{|c|c||c|c|c|c|c|}
 \hline
-   P & Q & \lnot{}P & P\land{}Q & P\lor{}Q & P\Rightarrow{}Q & P\Leftrightarrow{}Q \\
+   P & Q & \lnot{}P & P\land{}Q & P\lor{}Q & P\Rightarrow{}Q & P\iff{}Q \\
 \hline
 false & false & true & false & false & true & true \\
 false & true & true & false & true & true & false \\
@@ -473,7 +473,7 @@ The model in first order logic consists of the set of \textbf{objects}, set of \
 
 In first order logic here are \textbf{sentences} describing facts and \textbf{terms} describing objects. 
 
-Terms can be constants, variables and functions. Sentences correspond to relations (and specifically to equality relations), and they can be combined by operators same as in perceptional logic: $\vee$ $\wedge$ $\Rightarrow$ $\Leftrightarrow$ $\lnot$. To construct sentences we can also use \textbf{quantifiers}:
+Terms can be constants, variables and functions. Sentences correspond to relations (and specifically to equality relations), and they can be combined by operators same as in perceptional logic: $\lor$ $\land$ $\Rightarrow$ $\iff$ $\lnot$. To construct sentences we can also use \textbf{quantifiers}:
 \begin{itemize}
 \setlength{\itemsep}{0pt}
 \setlength{\parskip}{0pt}
@@ -499,8 +499,8 @@ Examples of the sentences in the vacuum world are:
 \setlength{\parskip}{0pt}
 \setlength{\parsep}{0pt}
 \item $At(V,A)$ \\Vacuum is at location A.
-\item $\forall_d \forall_l \; Dirt(d) \vee Loc(l) \Rightarrow \lnot At(d,l)$ \\There is no dirt in any location.
-\item $\exists_l \exists_d \; Dirt(d) \vee Loc(l) \vee At(V,l) \vee At(d,l) $ \\The vacuum is in the location with dirt.
+\item $\forall_d \forall_l \; Dirt(d) \lor Loc(l) \Rightarrow \lnot At(d,l)$ \\There is no dirt in any location.
+\item $\exists_l \exists_d \; Dirt(d) \lor Loc(l) \lor At(V,l) \lor At(d,l) $ \\The vacuum is in the location with dirt.
 \end{itemize}
 
 \section{Planning}
