@@ -491,16 +491,16 @@ The example of world that can be described by first-order logic is an vacuum wor
 \includegraphics[height=0.3\textwidth]{vacuum_world.pdf}
 \end{figure}
 
-The \textbf{objects} in this world are locations $A$ and $B$, vacuum cleaner $V$ and two pieces of dirt $D_1$ and $D_2$. The \textbf{relations } are $Loc(x)$ (true for any location), $Vacuum(x)$ (true for any vacuum, $Dirt(x)$ (true for any dirt) and add $A+(x,y)$ which is true for an object and an location.
+The \textbf{objects} in this world are locations $A$ and $B$, vacuum cleaner $V$ and two pieces of dirt $D_1$ and $D_2$. The \textbf{relations } are $Loc(x)$ (true for any location), $Vacuum(x)$ (true for any vacuum, $Dirt(x)$ (true for any dirt) and add $At(x,y)$ which is true for an object and an location.
 
 Examples of the sentences in the vacuum world are:
 \begin{itemize}
 \setlength{\itemsep}{0pt}
 \setlength{\parskip}{0pt}
 \setlength{\parsep}{0pt}
-\item $A+(V,A)$ \\Vacuum is at location A.
-\item $\forall_d \forall_l \; Dirt(d) \vee Loc(l) \Rightarrow \lnot A+(d,l)$ \\There is no dirt in any location.
-\item $\exists_l \exists_d \; Dirt(d) \vee Loc(l) \vee A+(V,l) \vee A+(d,l) $ \\The vacuum is in the location with dirt.
+\item $At(V,A)$ \\Vacuum is at location A.
+\item $\forall_d \forall_l \; Dirt(d) \vee Loc(l) \Rightarrow \lnot At(d,l)$ \\There is no dirt in any location.
+\item $\exists_l \exists_d \; Dirt(d) \vee Loc(l) \vee At(V,l) \vee At(d,l) $ \\The vacuum is in the location with dirt.
 \end{itemize}
 
 \section{Planning}
