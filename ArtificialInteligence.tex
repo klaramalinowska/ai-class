@@ -27,7 +27,15 @@ In deterministic environment the effect of an agent actions uniquely determines 
 In discrete environment the finally actions choices and things to sense. In continuous environment there is may be unlimited amount of possible actions or things to sense.
 
 \paragraph{Benign/adversarial}
-The benign environment does not have an objective that contradicts your objective. In adversarial the environment actively observes the agent actions and counteracts with what it is trying to achieve.
+The benign environment does not have an objective that contradicts your objective. In adversarial the environment actively observes the agent actions and counteracts with what it is trying to achieve \\[1em]
+Examples of algorithms that work in those environments are listed in the table.\\[1em]
+
+\begin{tabular}{|c|c|c|}
+\hline
+					& \textbf{deterministic} & \textbf{stochastic}\\ \hline
+\textbf{fully observable}		& A*, depth first, breadth first 	& MDP 	\\ \hline
+\textbf{partially observable}   &									& POMDP	\\ \hline
+\end{tabular}
 
 \section{Problem Solving}
 
@@ -518,5 +526,50 @@ Belief states space contains all states that agent can be in basing on the infor
 In \textbf{deterministic environments} each action taken is having the one possible result, and thus action taken by agent can preserve or reduce the dimensionality of the belief states space. The dimensionality is reduced if actions starting from different states lead to the same state. Observation (sensing the environment) also can preserve dimensionality, if we don't learn anything new about the environment, or reduce it when new information is gained. In fact it partitions the belief states space.
 
 In \textbf{stochastic environments} when agent takes action the dimensionality of belief states space increases, because the result of the action is not known - there may be many results with different possibilities of occurrence. On the other hand sensing environment can, as in deterministic environment, only preserve or reduce the dimensionality.
+
+\section{Planning under uncertainty}
+
+We can't effectively use conventional planning in stochastic environments because while building the tree that describes the problem the textbf{branching factor} is too large and simultaneously \textbf{tree is too deep}. Many \textbf{states reoccur} in the search, because we can go back to the same state because of the uncertainty.
+
+\subsection{Marcov decision process}
+
+In Marcov decision process we define:\begin{itemize}
+\item states $s_1, s_2, ... s_n$
+\item actions $a_1, a_2, ... a_n$
+\item state transition matrix $T(s',a, s)=P(s'|a,s)$
+\item reward function (eg. $R(s)$)
+\end{itemize}
+
+\textbf{Policy} is a model which assigns an action to each state in the environment $\pi(s)\rightarrow a$. In the Marcov decision process the task is to create policy for the given problem. The goal reward and the costs of moving into different states are encoded in the reward function $R-t$ which is stochastic and depends also on time (it changes after each step taken). 
+
+Thus we need to maximize the expectation value $E$ of the expression:
+\[ E \left[ \sum_{t=0}^{\infty} \gamma^t R_t \right] \]
+Here $\gamma$ is the discount factor which decays the future reward factor with time. It also keeps the expectation value binded by:
+\[  E \left[ \sum_{t=0}^{\infty} \gamma^t R_t \right] \leq \frac{1}{1-\gamma} |R_{max}|\]
+
+\subsubsection{Value iteration}
+
+\textbf{Value function} $V(s)$ of the state is the expected sum of future discount and reward given that we start in the state s and execute the policy $\pi$:
+\[ V(x) = E_{\pi} \left[ \sum_{t=0}^{\infty} \gamma^t R_t | s_0 = s \right] \]
+
+While planning firstly we need to find a value functions by simulation. We recursively estimate the value of the state s by the following algorithm:
+\[
+  V(s) = \left\{ 
+  \begin{array}{l}
+   R(s) \quad  \mathrm{if\; } s \mathrm{ \; is \; a \; final \; state} \\
+   V(s) = \left[ \max_a \gamma \sum_{s'} P(s'|a,s)V(s') \right] + R(s) \\
+  \end{array} \right.
+\]
+We do it around for all the states until it converges for all the states. There is a theorem that it will always converge.
+
+After calculating value function for all the states the policy for the given state s is
+\[ \pi (s) = \arg\max_{a} \sum_{s'} P(s'|a,s)V(s') \]
+If we know the policy (that means which action should be taken in any state available the problem is solved.
+
+Alternatively to assigning values for the states, as in the function $V(s)$ we can assign it to the state-action pairs by the function $Q(s,a)$. 
+
+\subsection{Partially observable Marcov decision process}
+
+POMDP is used in partially observable environments under uncertainty. Here the planning is done in the \textbf{information space} (\textbf{belief space)}, and in this new space we use the value iteration.
 
 \end{document}
