@@ -2,10 +2,12 @@
 \usepackage[utf8]{inputenc}
 \usepackage{graphicx}
 \usepackage{hyperref}
+\usepackage{algorithmic}
 
 %opening
 \title{Artificial Intelligence \\ notes}
 \author{Klara Malinowska}
+
 
 \begin{document}
 
@@ -571,5 +573,72 @@ Alternatively to assigning values for the states, as in the function $V(s)$ we c
 \subsection{Partially observable Marcov decision process}
 
 POMDP is used in partially observable environments under uncertainty. Here the planning is done in the \textbf{information space} (\textbf{belief space)}, and in this new space we use the value iteration.
+
+\section{Reinforced learning}
+
+Reinforced learning is used when we don't know the reward model R or even the transition model P.
+
+There are several agent designs in reinforced learning. \textbf{Utility-based agent} knows the transition model P and basing on that it learns the reward model R and thus it builds an utility function U which it can use to act. \textbf{Q-learning agent} does not know R or P, and it learns the value function of state-action pairs $Q(s,a)$ which it can later use. \textbf{Reflex agent} learns directly the policy $\pi(s)$.
+
+Reinforced learning agents may be \textbf{passive} or \textbf{active}. The passive agents learn while executing the fixed policy - what they've learn does not affect they policy. The active agents may change policy while learning and take actions basing on what they have already leaned.
+
+\subsection{Temporal difference learning}
+
+It is a passive reinforced learning technique. The agent follows the fixed policy $\pi$. The agent builds up the table of utilities $U(s)$ and keeps track of how many times it visited each state $N_s(s)$ while executing policy. 
+
+\begin{algorithmic}
+\IF{$s'$ in new} 
+	\STATE $U[s'] \gets r'$
+\ELSIF{$s$ is not null}
+	\STATE increment $N_s[s]$
+	\STATE $U[s]  \leftarrow U(s) + \alpha (N_s[s])(r+\gamma U[s']-U[s])$
+\ENDIF
+\end{algorithmic}
+
+Factor $\alpha (N_s[s])$ is called \textbf{learning rate} and it describes how much we want to change to utility of the state given the reward of the final state $s$. It depends on the $N_s[s]$ so that the more times we have visited the state $s$ the less it effects the utility of the state we came from. The possible choice for $\alpha$ is $\alpha(N_s[s])= \frac{1}{1+N}$. Factor $\gamma$ is a discount.
+
+The problems of temporal difference learning algorithm are:\begin{itemize}
+\item long convergence,
+\item limitation by the predefined policy,
+\item possibility that some states may never be visited,
+\item possibility that some states may be visited few times and thus the utility function is poorly estimated there.
+\end{itemize}
+
+Once we have a utility model for each state we can calculate the policy:
+\[ \pi^*(s) = \arg\max_{a \in A(s)} \sum_{s'} P(s'|s,a) U(s') \]
+But to learn policy, we need not only the utilities $U(s)$ but also transition model $P(s'|s,a)$ and this model we don't know after applying temporal difference learning, greedy agents or exploitation agents. 
+
+\subsection{Q-learning}
+
+In Q-learning we don't find the transition model nor utilities, but we learn the direct mapping from sates and actions to utilities $Q(s,a)$ and we can use this function directly.
+
+\[ Q(a,s) \leftarrow Q(s,a) + \alpha \left( R(a) +\gamma Q(s',a') - Q(s,a) \right) \]
+
+\section{Hidden Markov Models}
+
+Hidden Markov Models are used to analyse and predict time series. 
+
+\subsection{Markov chains}
+
+\begin{center}
+\includegraphics[height=0.08\paperheight]{HMN.pdf}
+\end{center}
+
+There is a sequence of states that evolves in time into \textbf{Markov chain} and each state $S_n$ only depends on its predecessor $S_{n-1}$ and not on the previous states. Each state emits a \textbf{measurement} $Z_n$. For hidden chain we are not able to observe the states directly (and thus they are called \textbf{hidden}), but we can observe the measurements.
+
+\subsubsection{Stationary distribution}
+
+Any Markov chain settles to \textbf{stationary distribution} (or the looped sequence), that is the probability of being in the given state $A$ at the infinite time is well defined.
+\[P(A_{\infty} = \lim_{t \rightarrow \infty} P(A_t) \]
+Then in the infinity limit we have the condition :
+\[ P(A_t) = P(A_{t-1}) \]
+Then for the chain with two possible states $A$ and $B$ we have
+\[ P(A_t) = P(A_t|A_{t-1}) P(A_{t-1}) +P(A_t|B_{t-1}) P(B_{t-1}) \]
+\[ P(A_t) = P(A_t|A_{t-1}) P(A_{t-1}) +P(A_t|B_{t-1}) [1 - P(A_{t-1}) ] \]
+Then if we know $P(A_t|A_{t-1})$ and $P(A_t|B_{t-1})$ in the $t \rightarrow \infty$ limit  $P(A_t)= P(A_{t-1})$ we get the equation of  $P(A_{\infty})$. 
+
+\subsubsection{Finding transition probabilities}
+
+For Markov chain if we are given the sequence of states we can estimate the transition probabilities between those states as well as initial distribution, for example by \textbf{maximum likelihood} method with Laplacian smoothing.
 
 \end{document}
