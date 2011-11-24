@@ -3,6 +3,9 @@
 \usepackage{graphicx}
 \usepackage{hyperref}
 \usepackage{algorithmic}
+\usepackage{alltt}
+
+\renewcommand{\ttdefault}{txtt}
 
 %opening
 \title{Artificial Intelligence \\ notes}
@@ -71,33 +74,33 @@ A problem solving technology works only if the domain is:
 
 The two search algorithms differ in ``having memory'' - remembering which states are already explored. The tree algorithm does not do that, so it can go back with the explored path to the state it has already been in. The graph search remembers where it has already been and thus never goes back to the previously visited states.
 \paragraph{Tree search}
-\begin{verbatim}
-function Tree.Search(problem)
-  frontier = {[initial]}
-  loop:
-    if frontier is empty: return FAIL
+\begin{alltt}
+\textbf{function} Tree.Search(problem)
+  frontier = \{[initial]\}
+  \textbf{loop}:
+    \textbf{if} frontier is empty: \textbf{return} FAIL
     path = remove_choice(frontier)
     s = path.end
-    if s is a goal: return path
-    for a in actions:
+    \textbf{if} s is a goal: \textbf{return} path
+    \textbf{for} a in actions:
       add [path + a -> Result(s,a)] to frontier
-\end{verbatim}
+\end{alltt}
 
 \paragraph{Graph search}
-\begin{verbatim}
-function Tree.Search(problem)
-  frontier = {[initial]}
-  explored = {}
-  loop:
-    if frontier is empty: return FAIL
+\begin{alltt}
+\textbf{function} Tree.Search(problem)
+  frontier = \{[initial]\}
+  explored = \{\}
+  \textbf{loop}:
+    \textbf{if} frontier is empty: \textbf{return} FAIL
     path = remove_choice(frontier)
     s = path.end
     add s to explored
-    if s is a goal: return path
-    for a in actions:
+    \textbf{if} s is a goal: \textbf{return} path
+    \textbf{for} a in actions:
       add [path + a -> Result(s,a)] to frontier 
       unless Result(s,a) in frontier + explored
-\end{verbatim}
+\end{alltt}
 
 \paragraph{Breadth first search}
 Always chooses the shortest (in term of steps) path to explore next. If there are paths of the same length, it chooses randomly. Is guaranteed to find the shortest (in terms of number of steps) path. Requires storage space of $2^n$ paths to store all the nodes in the frontier.
@@ -616,7 +619,7 @@ In Q-learning we don't find the transition model nor utilities, but we learn the
 
 \section{Hidden Markov Models}
 
-Hidden Markov Models are used to analyse and predict time series. 
+Hidden Markov Models are used to analyse and predict time series. We can use them to \textbf{predict} the next state and the next measurement basing on the knowledge of the previous states or measurements and probability of transitions. They can be also used for \textbf{state estimation} - predicting the hidden state given the measurements.
 
 \subsection{Markov chains}
 
@@ -625,6 +628,20 @@ Hidden Markov Models are used to analyse and predict time series.
 \end{center}
 
 There is a sequence of states that evolves in time into \textbf{Markov chain} and each state $S_n$ only depends on its predecessor $S_{n-1}$ and not on the previous states. Each state emits a \textbf{measurement} $Z_n$. For hidden chain we are not able to observe the states directly (and thus they are called \textbf{hidden}), but we can observe the measurements.
+
+If we know the state $S_m$ then the past (states and measurements for $0 \leq t < m$), the future (states and measurements for $m > t \geq n$) and the present measurement $Z_m$ are conditionally independent on each other.
+\subsubsection{Infrenece in Markov chains}
+
+The math of the hidden Markov model is described by the following equations. The next state distribution $P(X_{m+1}|X_m)$, the measurement distribution $P(Z_m|S_m)$ and the initial distribution $P(S_0)$ are the parameters of the model.
+
+\begin{itemize}
+\item The probability of internal state variable $S_m$ given a specific measurement $Z_m$ is:
+\[ P(S_m|Z_m) = \frac{ P(Z_m|S_m) P(S_m)}{P(Z_m)} \propto\ P(Z_m|S_m) P(S_m) \]
+$P(S_m|Z_m)$  is proportional to $P(Z_m|S_m) P(S_m)$ because $P(Z_m)$ does not depend on the target variable $S_m$. Product $P(Z_m|S_m) P(S_m)$ is the basic measure update of Markov models and needs to be normalized.
+
+\item To predict the distribution od $S_{m+1}$ given $S_m$ we apply total probability:
+\[ P(X_{m+1}) = \sum_{S_m} P(X_m)P(X_{m+1}|X_m) \]
+\end{itemize}
 
 \subsubsection{Stationary distribution}
 
@@ -640,5 +657,78 @@ Then if we know $P(A_t|A_{t-1})$ and $P(A_t|B_{t-1})$ in the $t \rightarrow \inf
 \subsubsection{Finding transition probabilities}
 
 For Markov chain if we are given the sequence of states we can estimate the transition probabilities between those states as well as initial distribution, for example by \textbf{maximum likelihood} method with Laplacian smoothing.
+
+\subsection{Particle filters}
+
+Particle filters are commonly used in robotics for recognizing  the location of the robot. Particle filters. Key thing in the particle filters is representation of belief space. They represent the belief space as the collection of points (particles) in which the robot may be (hypothetical positions of the robot), each point described by vector of some values (eg. $x$ and $y$ coordinates, heading direction or others). The density of those points represents the posterior probability of being in certain location.
+
+Each particle represents is a representation of a possible state and the more consistent the particle with measurement, the more likely the particle is to survive. It is represented by assigning the \textbf{importance weight} to each particle, connected to measurement probability. Then when the robot moves \textbf{resampling} takes place. Particles with weights are used to create the new particles set by randomly picking particles in proportion to their weights. Then the chosen particles are moved accordingly to the robot movement and some noise is added. In this way particles tend to group in the most probable locations of the robot.
+
+The algorithm of particle filter looks as follows, where $S$ is set of particles with associated importance weights, $U$ is a control vector and $Z$ is an measurement vector. There is also additional particle set $S'$ (initially $S' = \emptyset$) and variable $\eta$ (initially $\eta=0$).
+
+\begin{verbatim}
+ALGORITHM PARTICLE FILTER(S,U,Z)
+
+!!!TODO!!!
+\end{verbatim}
+
+\section{Games}
+To describe a game we need the following:
+\begin{itemize}
+\setlength{\itemsep}{0pt}
+\setlength{\parskip}{0pt}
+\setlength{\parsep}{0pt}
+\item set of states $s$ including distinguished  start state $s_0$
+\item set of players $P$
+\item function giving possible actions of player in given state $Actions(s,P) \rightarrow {a}$
+\item transition function $Result(s,a) \rightarrow s'$
+\item terminal test saying is it the end of the game $Terminal(s) \rightarrow T or F$
+\item terminal utilities giving number for each player at the end of the game $U(s,P) \rightarrow n$
+\end{itemize}
+Terminal utilities may be 1 and -1 for the game where you either win or loose, or they may have different values of more complicated games.
+
+There are many different types of games. They may be:\begin{itemize}
+\setlength{\itemsep}{0pt}
+\setlength{\parskip}{0pt}
+\setlength{\parsep}{0pt}
+\item \textbf{deterministic} or \textbf{stochastic}
+\item \textbf{fully} or \textbf{partially observable} or \textbf{unknown} environment
+\item \textbf{solitary} or \textbf{adversarial}
+\end{itemize}
+
+For example chess and checkers are deterministic, two-player, zero-sum games (means that the sum of the utilities of the both players is zero: winner gets 1 and looser gets -1).
+
+\subsection{Deterministic, two-player, zero-sum game}
+
+In such a game we can draw a tree starting at the initial state $s_0$ and continuing until each branch reaches the final state, for each the terminal utility is defined. There are two players having their moves in turns, so at the successive levels of the tree players make decisions alternately. One player - Max - aims to maximize the terminal utility for himself, an the second player - Min - aims to minimize the terminal utility of Max.
+
+We can back up the utility values up the tree, assuming that both players are rational, means they will always make move which leads to them winning the game. It is done by the function $Value(s)$, which allows us to assign the utility value to each node in the tree:
+
+ \begin{alltt}
+def \textbf{Value}(s)
+   if s is terminal:     U(s)
+   if s is maximizing:   maxValue(s)
+   if s is minimizing:   minValue(s)
+
+def \textbf{minValue}(s)
+   m = -\(\infty \)
+   for (a,s') is successors(s):
+      v = value(s')
+      m = max(m,v)
+   return m
+	
+def \textbf{minValue}(s)
+   m = +\(\infty \)
+   for (a,s') is successors(s):
+      v = value(s')
+	  m = min(m,v)
+   return m
+\end{alltt}
+
+In this way we can find the optimal moves for the players and the result of any two-player, deterministic, zero-sum game.
+
+For the average branching factor $b$ and the depth of the tree $m$ the computational time complexity of searching through all the paths and backing values to the top is of order $\mathcal{O}(b^m)$. The space complexity (how much storage do we need to be able to search the tree by the depth search) is $\mathcal{O}(bm)$.
+
+
 
 \end{document}
